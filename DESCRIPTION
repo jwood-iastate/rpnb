@@ -1,0 +1,20 @@
+Package: rpnb
+Type: Package
+Title: Estimation of Random Parameters Negative Binomial
+Version: 0.1.0
+Authors@R: c(person("Wood", "Jonathan", role = c("aut", "cre"), 
+              email = "jwood2@iastate.edu", 
+              comment = c(ORCID = "0000-0003-0131-6384")))
+Description: Estimation of random parameter negative binomial regression models.
+    Estimation is done using Maximum Simulated Likelihood via Halton Draws.
+    Panel and non-panel specifications are available. The NB-1, NB-2 (standard 
+    negative binomial) and NB-P parameterizations are all possible.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Collate: 
+    'data.R'
+    'tri.R'
+    'rpnb.R'
+    'rpnb.predict.R'
