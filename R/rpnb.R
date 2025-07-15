@@ -68,7 +68,7 @@
 #' nbp.rp <- rpnb(Total_crashes ~ - 1 + lnlength + lnaadt,
 #'                rpar_formula = ~ speed50,
 #'                data = washington_roads,
-#'                rpardists = (Intercept = "u", speed50 = "n"),
+#'                rpardists = c(intercept = "u", speed50 = "n"),
 #'                ndraws = 100,
 #'                correlated = FALSE,
 #'                form = 'nbp',

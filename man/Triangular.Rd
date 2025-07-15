@@ -8,21 +8,21 @@
 \alias{rtri}
 \title{Triangle Distribution}
 \usage{
-dtri(x, mode = 0, sigma = 1, upper = NA, lower = NA, log = FALSE)
+dtri(x, mode = 0, sigma = 1, upper = NULL, lower = NULL, log = FALSE)
 
 ptri(
   q,
   mode = 0,
   sigma = 1,
-  upper = NA,
-  lower = NA,
+  upper = NULL,
+  lower = NULL,
   lower.tail = TRUE,
   log.p = FALSE
 )
 
-qtri(p, mode = 0, sigma = 1, upper = NA, lower = NA)
+qtri(p, mode = 0, sigma = 1, upper = NULL, lower = NULL)
 
-rtri(n, mode = 0, sigma = 1, upper = NA, lower = NA)
+rtri(n, mode = 0, sigma = 1, upper = NULL, lower = NULL)
 }
 \arguments{
 \item{x}{numeric value or a vector of values.}

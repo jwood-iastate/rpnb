@@ -64,20 +64,56 @@ and panel data structures.
 }
 \examples{
 \donttest{
-# Assuming `washington_roads` data is available
-# For a panel example, let's create a dummy panel identifier
-set.seed(123)
-washington_roads$county_id <- sample(1:10, nrow(washington_roads), replace = TRUE)
 
-## Panel Data RPNB Model
-panel_rp <- rpnb(
-  Total_crashes ~ lnlength + lnaadt,
-  rpar_formula = ~ speed50,
-  data = washington_roads,
-  panel = "county_id",
-  form = "nb2",
-  ndraws = 200
-)
-summary(panel_rp)
-}
+## Random Parameters Negative Binomial model (NB-1)
+data("washington_roads")
+nb1.rp <- rpnb(Total_crashes ~ - 1 + lnlength + lnaadt,
+               rpar_formula = ~ speed50,
+               data = washington_roads,
+               ndraws = 100,
+               correlated = FALSE,
+               rpardists = c(intercept="u", speed50="t"),
+               form = 'nb1',
+               method = "bfgs",
+               print.level = 2)
+
+summary(nb1.rp)
+
+## Random Parameters Negative Binomial model (NB-2)
+nb2.rp <- rpnb(Total_crashes ~ - 1 + lnlength + lnaadt,
+               rpar_formula = ~ speed50,
+               data = washington_roads,
+               ndraws = 100,
+               correlated = TRUE,
+               form = 'nb2',
+               method = "bfgs",
+               print.level = 1)
+
+summary(nb2.rp)
+
+## Random Parameters Negative Binomial model (NB-P)
+nbp.rp <- rpnb(Total_crashes ~ - 1 + lnlength + lnaadt,
+               rpar_formula = ~ speed50,
+               data = washington_roads,
+               rpardists = c(intercept = "u", speed50 = "n"),
+               ndraws = 100,
+               correlated = FALSE,
+               form = 'nbp',
+               method = "bfgs",
+               print.level = 1)
+
+summary(nbp.rp)
+
+## Random Parameters Negative Binomial model (NB-2) with panel
+nb2.rp <- rpnb(Total_crashes ~ - 1 + lnlength + lnaadt,
+               rpar_formula = ~ speed50,
+               data = washington_roads,
+               ndraws = 100,
+               correlated = TRUE,
+               form = 'nb2',
+               panel = "ID",
+               method = "bfgs",
+               print.level = 1)
+
+summary(nb2.rp)}
 }

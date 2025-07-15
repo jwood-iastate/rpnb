@@ -8,10 +8,9 @@ generate_rpar_draws <- function(object, ndraws) {
   mean_param_names <- paste0("mean.", object$rpar_names)
   betas_rand_mean <- params[mean_param_names]
 
-  # Generate base Halton draws
-  halton_draws <- randtoolbox::halton(ndraws, n_rand, scrambling = 0)
+  # Generate base Halton draws (use scrambled for all predictions, for simplicity)
+  halton_draws <- make_draws(ndraws, length(object$rpar_names), type = "scrambled-halton-rand-perm", seed = 123)
   draws <- matrix(NA, nrow = ndraws, ncol = n_rand)
-  colnames(draws) <- object$rpar_names
 
   if (object$correlated) {
     # For correlated parameters, use the stored Cholesky decomposition
@@ -25,11 +24,10 @@ generate_rpar_draws <- function(object, ndraws) {
 
     for (i in 1:n_rand) {
       dist <- object$rpardists[i]
-      rpar_name <- object$rpar_names[i]
       draws[, i] <- switch(dist,
                            "n"  = qnorm(halton_draws[, i], mean = betas_rand_mean[i], sd = rand_sds[i]),
                            "ln" = qlnorm(halton_draws[, i], meanlog = betas_rand_mean[i], sdlog = rand_sds[i]),
-                           "t"  = qtri(halton_draws[, i], min = betas_rand_mean[i] - rand_sds[i], max = betas_rand_mean[i] + rand_sds[i], mode=betas_rand_mean[i]),
+                           "t"  = qtri(halton_draws[, i], lower = betas_rand_mean[i] - rand_sds[i], upper = betas_rand_mean[i] + rand_sds[i], mode=betas_rand_mean[i]),
                            "u"  = qunif(halton_draws[, i], min = betas_rand_mean[i] - rand_sds[i], max = betas_rand_mean[i] + rand_sds[i]),
                            "g"  = qgamma(halton_draws[, i], shape = betas_rand_mean[i]^2 / rand_sds[i]^2, rate = betas_rand_mean[i] / rand_sds[i]^2)
       )
