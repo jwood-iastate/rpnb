@@ -1,0 +1,1 @@
+Estimation of Random Parameter Negative Binomial Regression. This includes correlated and uncorrelated random parameters, panel and non-panel spoecifications, multiple forms of the Negative Binomial (NB-1, NB-2, and NB-P), and prediction methods as documented in Wood and Gayah (2025): https://www.sciencedirect.com/science/article/pii/S0001457525002337
